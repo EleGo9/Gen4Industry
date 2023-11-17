@@ -1,0 +1,101 @@
+using System.IO;
+using UnityEngine;
+
+public class AnnotationSaver : MonoBehaviour
+{
+    // Data structure to store the annotations
+    private struct Annotation
+    {
+        public Vector2 position;
+        public Vector2 size;
+        public int classLabel;
+    }
+
+    private Annotation[] annotations;
+
+    // Function to add a new annotation
+    public void AddAnnotation(Vector2 position, Vector2 size, int classLabel)
+    {
+        // Add the new annotation to the annotations array
+        Array.Resize(ref annotations, annotations.Length + 1);
+        annotations[annotations.Length - 1].position = position;
+        annotations[annotations.Length - 1].size = size;
+        annotations[annotations.Length - 1].classLabel = classLabel;
+    }
+
+    // Function to save the annotations to a file
+    public void SaveAnnotations(string filePath)
+    {
+        using (StreamWriter writer = new StreamWriter(filePath))
+        {
+            for (int i = 0; i < annotations.Length; i++)
+            {
+                // Write the annotations in YOLOv7 format
+                writer.WriteLine(annotations[i].classLabel + " " + annotations[i].position.x + " " + annotations[i].position.y + " " + annotations[i].size.x + " " + annotations[i].size.y);
+            }
+        }
+    }
+}
+
+
+
+
+using System.IO;
+using UnityEngine;
+
+public class SegmentationSaver : MonoBehaviour
+{
+    private Transform objectTransform;
+
+    private void Start()
+    {
+        // Get the Transform component of the object
+        objectTransform = GetComponent<Transform>();
+    }
+
+    public void SaveSegmentation(string filePath)
+    {
+        using (StreamWriter writer = new StreamWriter(filePath))
+        {
+            // Get the position and size of the object
+            Vector3 position = objectTransform.position;
+            Vector3 size = objectTransform.localScale;
+
+            // Write the position and size to the file
+            writer.WriteLine(position.
+
+
+
+
+using UnityEngine;
+using System.Collections;
+using System.IO;
+
+public class MaskAnnotation : MonoBehaviour
+{
+    public Texture2D objectMask;
+
+    // Function to create a mask annotation for an object
+    public void CreateMaskAnnotation(Texture2D texture)
+    {
+        objectMask = texture;
+
+        // Loop through each pixel in the texture
+        for (int y = 0; y < objectMask.height; y++)
+        {
+            for (int x = 0; x < objectMask.width; x++)
+            {
+                Color pixelColor = objectMask.GetPixel(x, y);
+
+                // Check if the pixel is within the object
+                if (pixelColor.a > 0)
+                {
+                    // Write the pixel's coordinate to a file
+                    string annotation = x + "," + y;
+                    File.AppendAllText("maskAnnotation.txt", annotation + "\n");
+                }
+            }
+        }
+    }
+}
+
