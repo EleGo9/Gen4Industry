@@ -50,3 +50,31 @@ You should have generated the 'i-th' folder with the following structure:
         - model_info.yml
 
 
+# Convert to 
+# - YOLOv4 format (analogous to other YOLOvn detection formats)
+In the folder dsi/data/01/rgb/ you can find images and their respective bounding box labels in a file.txt with the same name of the image. The label is as follows: " 
+# - YOLOv7 segmentation format
+Generate the conda environment from yolov7 repository
+```conda create -n myenv python=3.9```
+```conda install --file requirements.txt```
+
+To generate a yolov7-seg dataset, run the following code:
+```python mask2label.py```
+where you must add the following input:
+- ```--masks path/to/masks/images``` indicates the path to the masks folder, be sure to add also the masks format to the path, for example ```path/to/folder/*.png```;
+- ```--rgbs path/to/rgbs/images``` indicates the path to the rgbs folder, be sure to add also the images format to the path, for example ```path/to/the/folder/*.png```;
+- ```--label n``` where n is the label of the objects in the image. Remember that you can process one label for each object and that this code is available only for single-instance images. If you have more than one label, you should run this code multiple times, one for each label;
+- ```dataset_path path/to/the/new/dataset``` where do you want to save your dataset?
+- ```dataset_name new_name``` which is the name of your new dataset?
+- ```train_perc m``` where m is the percentage of images saved for training;
+- ```val_perc s``` where s is the percentage of images saved for validation. Note that test images will be the images remained after the percentages of train and val are taken; 
+- ```--print True```
+
+
+To check if the dataset has been correctly generated, use the following code:
+```python annotations2mask.py --rgb /path/to/the/image/filname.png --txt /path/to/the/label/filename.txt```
+
+
+# - 6D pose dataset for evaluation
+
+
