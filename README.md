@@ -1,5 +1,6 @@
 ## Gen4Industry
 Data Generation Pipeline with Unity and Python Scripts for YOLOv7 Segmentation, YOLOv4 Detection and 6D pose estimation format.
+Paper accepted in Computers in Industry: https://authors.elsevier.com/sd/article/S0166-3615(24)00058-7
 
 # Open the project in Unity
 
